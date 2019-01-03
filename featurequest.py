@@ -1,14 +1,4 @@
-
-from flask import Flask
-app = Flask(__name__)
-
-@app.route("/")
-def greeting():
-    return "<h>Hello World!</h1>"
-
-@app.route('/<name>')
-def hello_name(name):
-    return "Hello {}!".format(name)
+from app import app
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(threaded=True)
