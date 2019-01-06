@@ -1,0 +1,42 @@
+{% extends "commontemplate.html" %}
+
+{% block content %}
+<h1>  Feature Request </h1>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.title.label }}<br>
+        {{ form.title(size=64) }}<br>
+        {% for error in form.title.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+
+    <p>
+        {{ form.description.label }}<br>
+        {{ form.description(size=164) }}<br>
+        {% for error in form.description.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+
+    <p>{{ form.client() }} {{ form.client.label }}</p>
+    <p>{{ form.client_priority() }} {{ form.client_priority.label }}</p>
+
+    <p> {{ form.target_date() }}<br> 
+        {{ form.target_date.label }}<br>
+        {% for error in form.target_date.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+
+
+    <p> {{ form.product_area(size=50) }}<br> 
+        {{ form.product_area.label }}<br>
+        {% for error in form.product_area.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
