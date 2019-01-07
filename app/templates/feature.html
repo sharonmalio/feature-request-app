@@ -1,52 +1,57 @@
 {% extends "commontemplate.html" %}
 
 {% block content %}
-<h1>  Feature Request </h1>
-<form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.title.label }}<br>
-        {{ form.title(size=64) }}<br>
-        {% for error in form.title.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
+<div class= "container" >
+        <div class ="header jumbotron"> 
+            <h1>  Feature Request </h1>
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.title.label }}<br>
+                    {{ form.title(size=64) }}<br>
+                    {% for error in form.title.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
 
-    <p>
-        {{ form.description.label }}<br>
-        {{ form.description(size=64) }}<br>
-        {% for error in form.description.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>{{ form.client.label }} <br>
-        {{ form.client() }} <br>
-        {% for error in form.target_date.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
+                <p>
+                    {{ form.description.label }}<br>
+                    {{ form.description(size=64) }}<br>
+                    {% for error in form.description.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>{{ form.client.label }} <br>
+                    {{ form.client() }} <br>
+                    {% for error in form.target_date.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
 
-    </p>
+                </p>
 
-    <p>{{ form.client_priority.label }}<br>
-        {{ form.client_priority() }} <br>
-        {% for error in form.target_date.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
+                <p>{{ form.client_priority.label }}<br>
+                    {{ form.client_priority() }} <br>
+                    {% for error in form.target_date.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
 
-    <p> {{ form.target_date.label }}<br>
-        {{ form.target_date() }}<br> 
-        {% for error in form.target_date.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
+                <p> {{ form.target_date.label }}<br>
+                    {{ form.target_date(size=64) }}<br> 
+                    {% for error in form.target_date.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
 
-    <p> {{ form.product_area.label }}<br>
-        {{ form.product_area(size=50) }}<br> 
-        {% for error in form.product_area.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>{{ form.submit() }}</p>
-</form>
+                <p> {{ form.product_area.label }}<br>
+                    {{ form.product_area(size=64) }}<br> 
+                    {% for error in form.product_area.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p class = "btn btn-primary">{{ form.submit() }}</p>
+            </form>
+        </div>
+        {% include "footer.html" %}
+        </div>
 {% endblock %}

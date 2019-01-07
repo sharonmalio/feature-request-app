@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
-from flask_wtf import Form
 from wtforms.validators import DataRequired
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField,IntegerField, DateField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import User
 
@@ -30,7 +29,8 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 class ClientForm(FlaskForm):
-    client = StringField('Title', validators=[DataRequired()])
+    id = IntegerField('id')
+    client = StringField('Client Identifier', validators=[DataRequired()])
    
 
 class FeatureForm(FlaskForm):
@@ -59,3 +59,9 @@ class FeatureForm(FlaskForm):
     product_area = StringField('Product Area', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+class FeatureSearchForm(FlaskForm):
+    choices = [('Client', 'Client'),
+                ('IWS User','IWS User')]
+              
+    select = SelectField('Search Features for:', choices=choices)
+    search = StringField('')

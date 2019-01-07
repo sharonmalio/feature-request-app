@@ -42,15 +42,26 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)  
-      
+
+class Client(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64))
+
+    features = db.relationship('Feature', backref='ownedby', lazy='dynamic')
+    def __repr__(self):
+        return "<Client: {}>".format(self.name)
+
 class Feature(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64), index=True, unique=False)
     description = db.Column(db.String(120), index=True, unique=False)
     client = db.Column(db.String(128), index=True, unique=False) 
-    client_priority = db.Column(db.Integer, index=True, unique=True)
+    client_priority = db.Column(db.Integer, index=True, unique=False)
     target_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     product_area = db.Column(db.String(65), unique=False, index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    client_id=db.Column(db.Integer, db.ForeignKey('client.id'))
+ 
 
+ 
 

@@ -1,25 +1,74 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
-      {% if title %}
-      <title>{{ title }} - FeatureApp</title>
-      {% else %}
-      <title>FeatureApp</title>
-      {% endif %}
-      
+        {% if title %}
+        <title>{{ title }} - FeatureApp</title>
+        {% else %}
+        <title>FeatureApp</title>
+        {% endif %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href ="http://getbootstrap.com/examples/jumbotron-narrow/">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div>
-            FeatureApp:
-            <a href="{{ url_for('index') }}">Home</a>
-            {% if current_user.is_anonymous %}
-            <a href="{{ url_for('login') }}">Login</a>
-            {% else %}
-            <a href="{{ url_for('logout') }}">Logout</a>
-            {% endif %}
-            <a href="{{ url_for('feature') }}">Feature Request</a>
-           
-        </div>
-        <hr>
+        <div class="container">
+            <div class="navbar-header">
+                <nav class ="navbar navbar-expand-md navbar-dark bg-dark">
+                    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                        <ul class="nav nav-pills pull-right">
+                            <li role="presentation" class="active">
+                                <a href="{{ url_for('index') }}">Home</a>
+                            </li>
+                            {% if current_user.is_anonymous %}
+                            <li role="presentation">
+                                <a href="{{ url_for('login') }}">Login</a>
+                            </li>
+                            {% else %}
+                            <li role="presentation">
+                                <a href="{{ url_for('logout') }}">Logout</a>
+                            </li>
+                            {% endif %}
+                            <li role = "presentation">
+                                <a href="{{ url_for('feature') }}">Feature Request</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                
+                <div >
+                        <h3 class="text-muted">Feature Request App</h3>
+
+                </div>
+                
+        <div class="row marketing">
+                <div class="col-lg-6">
+                    <h4>Bucket List</h4>
+                    <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+     
+                    <h4>Bucket List</h4>
+                    <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+     
+                    <h4>Bucket List</h4>
+                    <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                </div>
+     
+                <div class="col-lg-6">
+                    <h4>Bucket List</h4>
+                    <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+     
+                    <h4>Bucket List</h4>
+                    <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+     
+                    <h4>Bucket List</h4>
+                    <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                </div>
+            </div>
+            </div>
+          
+    
+            <hr>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <ul>
@@ -30,5 +79,6 @@
             {% endif %}
             {% endwith %}
             {% block content %}{% endblock %}
+        </div>
     </body>
 </html>

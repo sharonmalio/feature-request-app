@@ -1,29 +1,42 @@
 from flask import render_template, flash, redirect, session, url_for, request, g
 from app import app,db
 from flask_login import login_user, logout_user, current_user, login_required
-from .forms import LoginForm
-from .forms import FeatureForm
-from .models import User, Feature
+from .forms import LoginForm, ClientForm, FeatureForm, FeatureSearchForm
+from .models import User, Feature, Client
+from .tables import Results
 from werkzeug.urls import url_parse
 from app.forms import RegistrationForm
 from .database import db_session
 
+
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/')
-@app.route('/index')
+
+@app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('index.html', title='Home', posts=posts)
+    search = FeatureSearchForm(request.form)
+    if request.method == 'POST':
+        return search_results(search)
+    return render_template('index.html', title='Home', form=search)
 
+@app.route('/results')
+def search_results(search):
+    results = []
+    search_string = search.data['search']
+ 
+    if search.data['search'] == '':
+        qry = db_session.query(Feature)
+        results = query.all()
+ 
+    if not results:
+        flash('No results found!')
+        return redirect('/')
+    else:
+        # display results
+        table = Results(results)
+        table.border = True
+        return render_template('results.html', table=table)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -81,8 +94,9 @@ def save_changes(feature, form, new=False):
     """
     # Get data from form and assign it to the correct attributes
     # of the SQLAlchemy table object
-    feature = Feature()
-
+    new_client = Client()
+    new_client.name = form.client.data
+ 
     feature.title = form.title.data
     feature.description = form.description.data
     feature.client = form.client.data
@@ -97,3 +111,5 @@ def save_changes(feature, form, new=False):
     # commit the data to the database
     db_session.commit()
 
+if __name__ == "__main__":
+    app.run()
