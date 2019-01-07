@@ -12,10 +12,9 @@ app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+login = LoginManager(app)
 
-lm = LoginManager()
-lm.init_app(app)
-oid = OpenID(app, os.path.join(basedir, 'tmp'))
+login.login_view = 'login'
 
 from app import routes, models
 

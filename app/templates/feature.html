@@ -14,25 +14,35 @@
 
     <p>
         {{ form.description.label }}<br>
-        {{ form.description(size=164) }}<br>
+        {{ form.description(size=64) }}<br>
         {% for error in form.description.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
     </p>
+    <p>{{ form.client.label }} <br>
+        {{ form.client() }} <br>
+        {% for error in form.target_date.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
 
-    <p>{{ form.client() }} {{ form.client.label }}</p>
-    <p>{{ form.client_priority() }} {{ form.client_priority.label }}</p>
+    </p>
 
-    <p> {{ form.target_date() }}<br> 
-        {{ form.target_date.label }}<br>
+    <p>{{ form.client_priority.label }}<br>
+        {{ form.client_priority() }} <br>
         {% for error in form.target_date.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
     </p>
 
+    <p> {{ form.target_date.label }}<br>
+        {{ form.target_date() }}<br> 
+        {% for error in form.target_date.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
 
-    <p> {{ form.product_area(size=50) }}<br> 
-        {{ form.product_area.label }}<br>
+    <p> {{ form.product_area.label }}<br>
+        {{ form.product_area(size=50) }}<br> 
         {% for error in form.product_area.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
