@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link href="../static/css/signup.css" rel="stylesheet">
-        <!-- <script src="../static/js/jquery-1.11.2.js"></script> -->
-    </head>
+
 <body>
 {% extends "commontemplate.html" %}
-
 {% block content %}
-<div class= "container" >
-        <div class ="header jumbotron"> 
+<div class="container">
+        <div class="row">
+          <div class="col-sm-4">
 
             <h1>Register</h1>
             <form action="" method="post">
@@ -44,6 +41,8 @@
                     </p>
                     <p class= "submit">{{ form.submit() }}</p>
                 </form>
+      </div>
+      </div>
       </div>
       {% include "footer.html" %}
 </div>

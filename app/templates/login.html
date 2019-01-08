@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-            <link href="../static/css/signup.css" rel="stylesheet">
-            <script src="../static/js/jquery-1.11.2.js"></script>
-    </head>
+   
 
 {% extends "commontemplate.html" %}
 
 {% block content %}
-<div class= "container col-lg-6" >
-    <div class ="header "> 
-        <h1>Sign In</h1>
+
+<div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+        <h2>Sign In</h2>
         <form action="" method="post" novalidate>
             {{ form.hidden_tag() }}
             <p>
@@ -34,6 +33,9 @@
         </form>
 
     </div>
+    </div>
+    </div>
+    
     {% include "footer.html" %}
     </div>
 {% endblock %}
