@@ -29,8 +29,7 @@ def search_results(*args):
  
     if search.data['search'] == '':
         qry = db_session.query(Feature)
-        results = Feature.query.all()
-        Feature.query.order_by(Feature.client).all()
+        results = Feature.query.order_by(Feature.client).all()
        
     if not results:
         flash('No results found!')
