@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,61 +7,63 @@
     {% else %}
     <title>FeatureApp</title>
     {% endif %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- styles -->
-  
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
- 
-  <!-- scripts -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link href="../static/css/commontemplate.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- styles -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="../static/css/commontemplate.css" rel="stylesheet">
 </head>
+
 <body>
 
-<nav class="nav navbar navbar-inverse navbar-custom navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="{{ url_for('index') }}">Feature  Request App</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-            <li role="presentation" class="active">
-                <a href="{{ url_for('index') }}">Home</a>
-            </li>
-            {% if current_user.is_anonymous %}
-            <li role="presentation">
-                <a href="{{ url_for('login') }}">Login</a>
-            </li>
-            {% else %}
-            <li role="presentation">
-                <a href="{{ url_for('logout') }}">Logout</a>
-            </li>
-            {% endif %}
-            <li role = "presentation">
-                <a href="{{ url_for('feature') }}">Feature Request</a>
-            </li>
-        </ul>
-    </div>
-  </div>
-</nav>
+    <nav class="nav navbar navbar-inverse navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('index') }}">IWS: Feature Request App</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li role="presentation" class="active">
+                        <a href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    {% if current_user.is_anonymous %}
+                    <li role="presentation">
+                        <a href="{{ url_for('login') }}">Login</a>
+                    </li>
+                    {% else %}
+                    <li role="presentation">
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                    {% endif %}
+                    <li role="presentation">
+                        <a href="{{ url_for('feature') }}">Feature Request</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<hr>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
     <ul>
-    {% for message in messages %}
+        {% for message in messages %}
         <li>{{ message }} </li>
-    {% endfor %}
+        {% endfor %}
     </ul>
-{% endif %}
-{% endwith %}
-{% block content %}{% endblock %}
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
 </body>
+
 </html>

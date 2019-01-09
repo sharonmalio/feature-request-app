@@ -2,64 +2,67 @@
 
 {% block content %}
 <div class="container">
-        <div class="row">
-          <div class="col-sm-4">
-            <h2>  Feature Request </h2>
-            <form action="" method="post" novalidate>
-                {{ form.hidden_tag() }}
-               <div class = "form-group">
-                    {{ form.title.label }}<br>
-                    {{ form.title(size=64) }}<br>
-                    {% for error in form.title.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </div>
-                <div class = "form-group">
-                    {{ form.description.label }}<br>
-                    {{ form.description(size=64) }}<br>
-                    {% for error in form.description.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </div>
-                <div class = "form-group">
-                    {{ form.client.label }} <br>
-                    {{ form.client() }} <br>
-                    {% for error in form.target_date.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4">
+            <div class="input-group">
+                <h2> Feature Request </h2>
+                <form action="" method="post" novalidate class="form-horizontal">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group ">
+                        {{ form.title.label(class ="control-label") }}<br>
+                        {{ form.title(class="form-control") }}<br>
+                        {% for error in form.title.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.description.label(class ="control-label") }}<br>
+                        {{ form.description(size=64, class="form-control") }}<br>
+                        {% for error in form.description.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.client.label(class ="control-label") }} <br>
+                        {{ form.client(class="form-control") }} <br>
+                        {% for error in form.target_date.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
 
-                </div>
+                    </div>
 
-                <div class = "form-group">
-                    {{ form.client_priority.label }}<br>
-                    {{ form.client_priority() }} <br>
-                    {% for error in form.target_date.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </div>
+                    <div class="form-group">
+                        {{ form.client_priority.label(class ="control-label") }}<br>
+                        {{ form.client_priority(size=64, class="form-control") }} <br>
+                        {% for error in form.target_date.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
 
-                <div class = "form-group">
-                    {{ form.target_date.label }}<br>
-                    {{ form.target_date(size=64) }}<br> 
-                    {% for error in form.target_date.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </div>
+                    <div class="form-group">
+                        {{ form.target_date.label(class ="control-label") }}<br>
+                        {{ form.target_date(size=64,class="form-control" ) }}<br>
+                        {% for error in form.target_date.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
 
-                <div class = "form-group">
-                     {{ form.product_area.label }}<br>
-                    {{ form.product_area(size=64) }}<br> 
-                    {% for error in form.product_area.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </div>
-                <div class = "form-group btn btn-primary">
-                    {{ form.submit() }}
-                </div>
-            </form>
+                    <div class="form-group">
+                        {{ form.product_area.label(class ="control-label") }}<br>
+                        {{ form.product_area(class="form-control") }}<br>
+                        {% for error in form.product_area.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.submit(class="form-control btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
         </div>
-        </div>
-        
-        {% include "footer.html" %}
-        </div>
+    </div>
+</div>
+
+{% include "footer.html" %}
+</div>
 {% endblock %}
