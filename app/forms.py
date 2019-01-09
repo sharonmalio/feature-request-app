@@ -37,6 +37,7 @@ class ClientForm(FlaskForm):
 
 
 class FeatureForm(FlaskForm):
+    
     clients = [
         ('Client A', 'Client A'),
         ('Client B', 'Client B'),
@@ -52,6 +53,7 @@ class FeatureForm(FlaskForm):
         ('Claims', 'Claims'),
         ('Reports', 'Reports'),
     ]
+    id = IntegerField('id')
     title = StringField('Title', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
     client = SelectField('Client Identity', choices=clients)

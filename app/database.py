@@ -15,3 +15,4 @@ def init_db():
     # you will have to import them first before calling init_db()
     import app.models
     Base.metadata.create_all(bind=engine)
+    conn = sqlite3.connect('app.db', check_same_thread=False)

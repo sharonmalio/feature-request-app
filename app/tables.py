@@ -1,4 +1,4 @@
-from flask_table import Table, Col
+from flask_table import Table, Col, LinkCol
 
 
 class Results(Table):
@@ -9,3 +9,4 @@ class Results(Table):
     client_priority = Col('Client Priority')
     target_date = Col('Target Date')
     product_area = Col('Product Area')
+    edit = LinkCol('Edit', 'edit', url_kwargs=dict(id='id'))

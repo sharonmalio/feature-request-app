@@ -36,8 +36,25 @@ def search_results(*args):
     else:
         # display results
         table = Results(results)
-        table.border = False
+        table.border = True
         return render_template('results.html', table=table)
+        
+@app.route('/item/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    qry = db_session.query(Feature).filter(
+                Feature.id==id)
+    feature = qry.first()
+ 
+    if feature:
+        form = FeatureForm(formdata=request.form, obj=feature)
+        if request.method == 'POST' and form.validate():
+            # save edits
+            save_changes(feature, form)
+            flash('Feature updated successfully!')
+            return redirect('/')
+        return render_template('edit_feature.html', form=form)
+    else:
+        return 'Error loading #{id}'.format(id=id)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
