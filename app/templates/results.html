@@ -1,2 +1,26 @@
-{% extends "commontemplate.html" %}
-{{ table }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Search Results - Features</title>
+
+</head>
+
+<body>
+    {% extends "commontemplate.html" %}
+    {% block content %}
+    <div class="container">
+        <div class="row">
+
+            <h2> Existing Requests </h2>
+
+            {{ table }}
+            {% endblock %}
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>

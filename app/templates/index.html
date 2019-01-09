@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
 {% extends "commontemplate.html" %}
 
 {% block content %}
@@ -18,15 +25,19 @@
                 </ul>
                 {% endif %}
                 {% endwith %}
-                {% from "_formhelpers.html" import render_field %}
+
                 <form action="" method="post" novalidate class="form-horizontal">
-                        <div class="form-group ">
-                        {{ render_field(form.select) }}
-                        </div>
-                        <div class="form-group ">
-                            {{ render_field(form.search) }}
-                        </div>
-                    <p><input type=submit value=Search>
+                    <div class="form-group ">
+                        {{ form.select.label(class ="control-label") }}<br>
+                        {{ form.select(class="form-control") }}<br>
+                    </div>
+                    <div class="form-group ">
+                        {{ form.search.label(class ="control-label") }}<br>
+                        {{ form.search(class="form-control") }}<br>
+                    </div>
+                    <div class="form-group">
+                        {{ form.submit(class="form-control btn btn-primary") }}
+                    </div>
                 </form>
             </div>
         </div>
@@ -34,3 +45,5 @@
     {% include "footer.html" %}
 </div>
 {% endblock %}
+</body>
+</html>

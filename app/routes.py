@@ -21,21 +21,22 @@ def index():
     return render_template('index.html', title='Home', form=search)
 
 @app.route('/results')
-def search_results(search):
+def search_results(*args):
+    search = FeatureSearchForm(request.form)
     results = []
     search_string = search.data['search']
  
     if search.data['search'] == '':
         qry = db_session.query(Feature)
-        results = query.all()
- 
+        results = Feature.query.all()
+       
     if not results:
         flash('No results found!')
         return redirect('/')
     else:
         # display results
         table = Results(results)
-        table.border = True
+        table.border = False
         return render_template('results.html', table=table)
 
 @app.route('/login', methods=['GET', 'POST'])

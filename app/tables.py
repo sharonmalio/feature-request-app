@@ -6,6 +6,6 @@ class Results(Table):
     title = Col('Title')
     description = Col('Description')
     client = Col('Client')
-    client_priority = Col('Clien Priority')
+    client_priority = Col('Client Priority')
     target_date = Col('Target Date')
     product_area = Col('Product Area')

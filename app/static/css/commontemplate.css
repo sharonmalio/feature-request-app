@@ -1,8 +1,21 @@
 
 .navbar-custom { 
   background-color:rgb(6, 6, 75) !important; 
-  color: #FFFFFF;
+  color: #000000;
 }
 li a{
   color:#000000;
+}
+
+.margin{
+	margin-top: 17px ;
+}
+.mt-0 {
+	margin-top: 55px !important;
+}
+body {
+	background-color: #f2ebce;
+	 height: 100%;
+        margin: 0;
+        padding: 0;
 }

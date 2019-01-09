@@ -67,4 +67,5 @@ class FeatureSearchForm(FlaskForm):
                ('IWS User', 'IWS User')]
 
     select = SelectField('Search Features for:', choices=choices)
-    search = StringField('')
+    search = StringField(' Name')
+    submit = SubmitField('Submit')
