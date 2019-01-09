@@ -21,6 +21,7 @@ def index():
     return render_template('index.html', title='Home', form=search)
 
 @app.route('/results')
+@login_required
 def search_results(*args):
     search = FeatureSearchForm(request.form)
     results = []
@@ -29,6 +30,7 @@ def search_results(*args):
     if search.data['search'] == '':
         qry = db_session.query(Feature)
         results = Feature.query.all()
+        Feature.query.order_by(Feature.client).all()
        
     if not results:
         flash('No results found!')
