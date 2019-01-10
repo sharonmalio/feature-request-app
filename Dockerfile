@@ -1,5 +1,4 @@
-FROM ubuntu:16.04
-
+FROM python:3
 MAINTAINER Sharon Malio "kaninimalio@gmail.com"
 
 RUN apt-get update -y && \
@@ -16,7 +15,7 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
-ENTRYPOINT [ "python" ]
+# ENTRYPOINT [ "python" ]
 
-CMD [ "featurequest.py" ]
+# CMD [ "featurequest.py" ]
 

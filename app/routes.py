@@ -102,8 +102,11 @@ def feature():
         # save the New Feature
         feature = Feature()
         save_changes(feature, form, new=True)
+       
         flash('Feature Request Submitted successfully!')
+
         return redirect(url_for('feature'))
+   
   
     return render_template('feature.html', title='Feature Request', form=form)
 
@@ -112,9 +115,7 @@ def save_changes(feature, form, new=False):
     Save the changes to the database
     """
     # Get data from form and assign it to the correct attributes
-    # of the SQLAlchemy table object
-    new_client = Client()
-    new_client.name = form.client.data
+ 
  
     feature.title = form.title.data
     feature.description = form.description.data
@@ -123,9 +124,9 @@ def save_changes(feature, form, new=False):
     feature.target_date = form.target_date.data
     feature.product_area = form.product_area.data
     
-    if new:
-        # Add the new feature to the database
-        db_session.add(feature)
+    # if new:
+    #     # Add the new feature to the database
+    db_session.add(feature)
  
     # commit the data to the database
     db_session.commit()

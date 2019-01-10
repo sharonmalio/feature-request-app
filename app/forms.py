@@ -53,12 +53,10 @@ class FeatureForm(FlaskForm):
         ('Claims', 'Claims'),
         ('Reports', 'Reports'),
     ]
-    id = IntegerField('id')
     title = StringField('Title', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
     client = SelectField('Client Identity', choices=clients)
-    client_priority = IntegerField(
-        'Client Priority', validators=[DataRequired()])
+    client_priority = IntegerField('Client Priority', validators=[DataRequired()])
     target_date = DateField('Target Date')
     product_area = SelectField('Product Area', choices=product_areas)
     submit = SubmitField('Submit')
