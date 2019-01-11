@@ -1,6 +1,6 @@
 WITHOUT USING DOCKER
 
-1.If you do not have Python installed on your computer install it before continuing. 
+ 1.If you do not have Python installed on your computer install it before continuing. 
 To check whether you have python installed, run the command: python3
 If it is installed it will bring its version and and a python shell.  
 
@@ -14,8 +14,8 @@ Finally mysql_secure_installation is complete and we can proceed now
 3. Install pip by running the commands  below:  Pip is a package management system that simplifies installation and management of software packages written in Python 
 sudo apt install python3-pip
 
-And verify the installation through this command
-pip3 --version
+  And verify the installation through this command
+  pip3 --version
 
 4. Now it's time to have the Project. Git clone the it  so as to have it locally in your machine by running the command below
 git clone https://github.com/sharonmalio/feature-request-app.git
