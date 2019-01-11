@@ -1,4 +1,4 @@
-NOT USING DOCKER
+WITHOUT USING DOCKER
 
 1.If you do not have Python installed on your computer install it before continuing. 
 To check whether you have python installed, run the command: python3
@@ -64,22 +64,31 @@ http://127.0.0.1:5000
 USING  DOCKER
 1.Install docker in your machine by following the steps in the link below(For those that do not have docker)
 https://docs.docker.com/install/linux/docker-ce/ubuntu/
+
 To verify that docker is up and running use the command below, you should get a hello from docker message
 sudo docker container run hello-world 
+
 2. Install docker-compose by using the command below
 sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
 If you have issues with curl you could use the command below with pip
 pip install -U docker-compose
+
 3. Apply executable permissions to the binary:
 sudo chmod +x /usr/local/bin/docker-compose
+
 4. You can also create a symbolic link to /usr/bin or any other directory in your path.
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
 5. Test the installation.
 docker-compose --version
-6. USing the Dockerfile in the project directory we are going to build it.. Change the directory to the project folder and activate the virtual env then use the command below to build the project image.
+
+6. Using the Dockerfile in the project directory we are going to build it.. Change the directory to the project folder and activate the virtual env then use the command below to build the project image.
 docker-compose build
+
 7.Then run the following command to actually launch the application through docker. By default, flask uses port 5000
 docker-compose up 
+
 16. Open your web browser and navigate to the following address to view the Flask application:
 http://0.0.0.0:5000
  
