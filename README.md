@@ -1,21 +1,9 @@
-WITHOUT USING DOCKER
+PRERIQUISITES
 
- 1.If you do not have Python installed on your computer install it before continuing. 
-To check whether you have python installed, run the command: python3
-If it is installed it will bring its version and and a python shell.  
-
-2. Ensure that you have MySQL installed in your machine. MySQL is the database that we shall use to connect our Flask app to a database. You can use this command to install: sudo apt-get install mysql-server mysql-client -y
-configure a few security configurations for our MySQL server by running the command below:
-sudo mysql_secure_installation
-The prompt  that informs us that we need to set the root password for MySQL you should press yes on it and  Enter a good password and press Enter on your Keyboard verify the password. Go ahead and remove anonymous users.  Follow through the rest of the steps as required and choose yes on reload the privilege table step.
-Finally mysql_secure_installation is complete and we can proceed now
-
-
-3. Install pip by running the commands  below:  Pip is a package management system that simplifies installation and management of software packages written in Python 
-sudo apt install python3-pip
-
-  And verify the installation through this command
-  pip3 --version
+PYTHON: Install python. To check whether you have python installed, run the command: python3
+MySQL SERVER: Ensure that you have MySQL installed in your machine. Command to install: sudo apt-get install mysql-server mysql-client -y
+configure a few security configurations for our MySQL server by running this command : sudo mysql_secure_installation
+PIP: Install pip by running this command:  sudo apt install python3-pip
 
 4. Now it's time to have the Project. Git clone the it  so as to have it locally in your machine by running the command below
 git clone https://github.com/sharonmalio/feature-request-app.git

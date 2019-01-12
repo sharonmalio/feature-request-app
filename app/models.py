@@ -62,5 +62,6 @@ class Feature(db.Model):
     client_priority = db.Column(db.Integer, index=True, unique=False)
     target_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     product_area = db.Column(db.String(65), unique=False, index=True)
+    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'))
