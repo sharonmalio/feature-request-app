@@ -1,87 +1,71 @@
-PRERIQUISITES
+# FEATURE REQUEST APPLICATION
 
-PYTHON: Install python. To check whether you have python installed, run the command: python3
-MySQL SERVER: Ensure that you have MySQL installed in your machine. Command to install: sudo apt-get install mysql-server mysql-client -y
-configure a few security configurations for our MySQL server by running this command : sudo mysql_secure_installation
-PIP: Install pip by running this command:  sudo apt install python3-pip
+A "feature request" is a request for a new feature that will be added onto an existing piece of software. Assume that the user is an employee at IWS who would be entering this information after having some correspondence with the client that is requesting the feature. 
 
-4. Now it's time to have the Project. Git clone the it  so as to have it locally in your machine by running the command below
-git clone https://github.com/sharonmalio/feature-request-app.git
-5. Launch VSCode and open your "feature-request-app" project folder, I used VSCode for the project, however you can use any source code editor of your choice that supports python language. 
-6. Select the Terminal tab from the panel on the bottom of VSCode and do the following
-Install python VENV
-sudo apt-get install python3-venv
-Delete the virtual env in the project folder. (look for a folder called featurequestenv ithin the root directory)
-sudo rm -R featurequestenv
-Create another venv called featurequestenv or whatever name you choose to use.
-python3 -m venv featurequestenv
-Cd into the virtual environment
-cd featurequestenv
-Activate the virtual environment by running the command below
-source featurequestenv/bin/activate 
-7. Installing the dependencies is the fourth  thing. We need some third party libraries for Python. These are all contained in a file called requirements.txt in the root directory of the project you cloned above(you can open up the project and find  the file). Run the commands below to install the dependencies.
-pip install -r requirements.txt 
-8. Now to launch the application rather to start our application enter the following into the terminal
-flask run -p 5000  you should receive an error free response. 
-9. Open your web browser and navigate enter the following address into the address field to view the Flask application:
-http://127.0.0.1:5000
-If you try logging in at this level, the application will throw an error that there is no database named featureapp
-This is because you do not have the database created, (This is the step we will need mysql server installed. )
-10.Now log in to mysql using the command below: This launches mysql 
-mysql -u root -p;
-11.Create a database called featureapp and Exit the shell using the command below
-CREATE DATABASE featureapp;
-Exit;
-12. Now we can connect our application to our SQL database, to ensure that we post and retrieve data. Start python in the terminal by entering the following into the terminal and pressing the Enter key on your keyboard:
-python3
-10. Enter the following into the terminal to import the already available models in the models.py file within the project folder under the app directory. 
-from featurequest import db, User, Feature, Client
-11. Next, enter the following into the terminal to create our table and its configuration:
-db.create_all()
-12. The output of the previous command should show our table configurations
-13. We must now commit our table and configuration to the feature database by entering the following into the terminal and pressing Enter on your keyboard:
-db.session.commit()
-14. We are now finished using the Python command line interface and can close it by entering the following into the terminal and pressing Enter on your keyboard:
-exit()
-15. Now start our application again by entering the following into the terminal
-flask run -p 5000  
-16. Open your web browser and navigate to the following address to view the Flask application:
-http://127.0.0.1:5000
-17. Start by creating a new user. That should work!!!
+## PROJECT FEATURES
+1. Users can create an account, log in and logout.
+2. Users can add new features from their clients.
+3. Users can view data of all the features available. 
+4. Features, of a particular client, are reasigned their priorities based on the priority of the newly added one.
 
-USING  DOCKER
-1.Install docker in your machine by following the steps in the link below(For those that do not have docker)
-https://docs.docker.com/install/linux/docker-ce/ubuntu/
+## TECH STACK
 
-To verify that docker is up and running use the command below, you should get a hello from docker message
-sudo docker container run hello-world 
+1. OS: Ubuntu
+2. Server Side Scripting: Python 3.6+
+3. Server Framework: Flask
+4. ORM: Sql-Alchemy
+5. JavaScript: JQuery
 
-2. Install docker-compose by using the command below
-sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+## PRERIQUISITES
+1. **PYTHON**: Install python. To check whether you have python installed, run the command: `python3`
+2. **MySQL SERVER**:Install MySQL:`sudo apt-get install mysql-server mysql-client -y`configure security configurations for our MySQL server:`sudo mysql_secure_installation`
+3. **PIP:** Install pip: `sudo apt install python3-pip` Verify the installation:`pip3 --version`
 
-If you have issues with curl you could use the command below with pip
-pip install -U docker-compose
+## RUNNING THE APPLICATION
 
-3. Apply executable permissions to the binary:
-sudo chmod +x /usr/local/bin/docker-compose
+### WITHOUT DOCKER 
+1. Git clone: `git clone https://github.com/sharonmalio/feature-request-app.git`
+2. Install python VENV from the terminal
+`sudo apt-get install python3-venv`
+3. Delete the virtual env in the project folder. (look for a folder called featurequestenv within the root directory of the project): `sudo rm -R featurequestenv`
+4. Create another venv called featurequestenv or whatever name you choose to use.
+`python3 -m venv featurequestenv`
+5. Cd into the virtual environment: `cd featurequestenv`
+6. Activate the virtual environment:`source featurequestenv/bin/activate `
+7. Install dependencies (contained in a file called requirements.txt in the root directory of the project):
+`pip install -r requirements.txt`
+8. log in to mysql:`mysql -u root -p`;
+9. Create a database called featureapp: `CREATE DATABASE featureapp;Exit;`
+10. Start python in the terminal:`python3`
+11. Import models in the models.py:`from featurequest import db, User, Feature, Client` then create tables:`db.create_all()` commit the tables and the onfigurations:`db.session.commit()` then exit python:`exit()`
+12. Start the application: `flask run -p 5000`
 
-4. You can also create a symbolic link to /usr/bin or any other directory in your path.
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+13. Open your web browser and navigate to theaddress:(http://127.0.0.1:5000)
 
-5. Test the installation.
-docker-compose --version
 
-6. Using the Dockerfile in the project directory we are going to build it.. Change the directory to the project folder and activate the virtual env then use the command below to build the project image.
-docker-compose build
+### WITH DOCKER
+1. Install docker in your machine:
+(https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 
-7.Then run the following command to actually launch the application through docker. By default, flask uses port 5000
-docker-compose up 
+2. To verify that docker is up and running use the command below, you should get a hello from docker message
+`sudo docker container run hello-world `
 
-16. Open your web browser and navigate to the following address to view the Flask application:
-http://0.0.0.0:5000
+3. Install docker-compose:
+`sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose` If you have issues with curl you could use pip:`pip install -U docker-compose`
+
+4. Apply executable permissions to the binary:`sudo chmod +x /usr/local/bin/docker-compose`
+
+5. You can also create a symbolic link to /usr/bin:`sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose`
+
+6. Test the installation.`docker-compose --version`
+
+7. Change the directory to the project folder: `cd feature-request-app` activate the virtual env: `source featurequestenv/bin/activate` build the docker image: `docker-compose build`
+
+8. launch the application:`docker-compose up` 
+
+9. Navigate to the address:(http://0.0.0.0:5000)
  
-
-
+## SCREENSHOTS
 
 
 
