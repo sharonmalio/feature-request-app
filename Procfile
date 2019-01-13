@@ -1,1 +1,1 @@
- web: python featurequest.py
+web: gunicorn featurequest:app
