@@ -5,7 +5,7 @@ A "feature request" is a request for a new feature that will be added onto an ex
 ## PROJECT FEATURES
 1. Users can create an account, log in and logout.
 2. Users can add new features from their clients.
-3. Users can view data of all the features available. 
+3. Users can view all the features available. 
 4. Features, of a particular client, are reasigned their priorities based on the priority of the newly added one.
 
 ## TECH STACK
@@ -67,6 +67,21 @@ A "feature request" is a request for a new feature that will be added onto an ex
  
 ## SCREENSHOTS
 
+### Register
+
+![Alt text](feature-request-app/screenshots/Register.jpg?raw=true "Optional Title")
+
+### Login
+
+![Alt text](feature-request-app/screenshots/login.jpg?raw=true "Optional Title")
+
+### Add New Feature
+
+![Alt text](feature-request-app/screenshots/add_feature.jpg?raw=true "Optional Title")
+
+### View all Features
+
+![Alt text](feature-request-app/screenshots/view_features.jpg?raw=true "Optional Title")
 
 
 
