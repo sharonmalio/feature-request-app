@@ -69,19 +69,19 @@ A "feature request" is a request for a new feature that will be added onto an ex
 
 ### Register
 
-![Alt text](/Register.jpg?raw=true "Optional Title")
+![registration](https://user-images.githubusercontent.com/11241491/51083208-24cba500-1727-11e9-8139-0c772beda642.png)
 
 ### Login
 
-![Alt text](/login.jpg?raw=true "Optional Title")
+![login](https://user-images.githubusercontent.com/11241491/51083206-1f6e5a80-1727-11e9-9b8a-545e5a6e55ea.png)
 
 ### Add New Feature
 
-![Alt text](/add_feature.jpg?raw=true "Optional Title")
+![add_feature](https://user-images.githubusercontent.com/11241491/51083204-1087a800-1727-11e9-81ff-fc898948c5dd.png)
 
 ### View all Features
 
-![Alt text](/view_features.jpg?raw=true "Optional Title")
+![view_features](https://user-images.githubusercontent.com/11241491/51083211-25fcd200-1727-11e9-8a61-3615fe0610ed.png)
 
 
 
