@@ -1,11 +1,10 @@
 from flask import render_template, flash, redirect, session, url_for, request, jsonify
 from features import app, db
 from flask_login import login_user, logout_user, current_user, login_required
-from .forms import LoginForm, ClientForm, FeatureForm, FeatureSearchForm
+from .forms import LoginForm, ClientForm, FeatureForm, FeatureSearchForm, RegistrationForm
 from .models import User, Feature, Client
 from .tables import Results
 from werkzeug.urls import url_parse
-from .forms import RegistrationForm
 from .database import db_session
 
 
@@ -19,7 +18,7 @@ def index():
     return render_template('index.html', title='Home', form=search)
 
 
-@app.route('/results', methods=['GET', 'POST')
+@app.route('/results', methods=['GET', 'POST'])
 @login_required
 def search_results(*args):
     search = FeatureSearchForm(request.form)

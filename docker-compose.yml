@@ -2,10 +2,18 @@
 version: '3'
 
 services:
-  db: 
+ 
+  db:
     image: mysql
+    command: --default-authentication-plugin=@Rocky#123.
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: @Rocky#123.
+  adminer:
+    image: adminer
+    restart: always
     ports:
-       - "3306:3306"
+      - 8080:8080
   web:
     build: .
     command: python -m flask run --host=0.0.0.0
