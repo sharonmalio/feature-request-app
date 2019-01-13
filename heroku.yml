@@ -1,0 +1,10 @@
+
+setup:
+  addons:
+    - plan: mysql
+      as: DATABASE
+build:
+  languages:
+    - python
+run:
+  web: bundle exec puma -C config/puma.rb
