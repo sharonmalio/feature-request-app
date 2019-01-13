@@ -24,11 +24,12 @@ A "feature request" is a request for a new feature that will be added onto an ex
 ## RUNNING THE APPLICATION
 
 ### WITHOUT DOCKER 
-1. Git clone: `git clone https://github.com/sharonmalio/feature-request-app.git`
+#####  WITHOUT GUNICORN
+1. Git clone: `git clone https://github.com/sharonmalio/feature-request-app.git` and change in to the project directory
 2. Install python VENV from the terminal
 `sudo apt-get install python3-venv`
 3. Delete the virtual env in the project folder. (look for a folder called featurequestenv within the root directory of the project): `sudo rm -R featurequestenv`
-4. Create another venv called featurequestenv or whatever name you choose to use.
+4. Create another venv called featurequestenv or a name of your choice.
 `python3 -m venv featurequestenv`
 5. Cd into the virtual environment: `cd featurequestenv`
 6. Activate the virtual environment:`source featurequestenv/bin/activate `
@@ -38,10 +39,9 @@ A "feature request" is a request for a new feature that will be added onto an ex
 9. Create a database called featureapp: `CREATE DATABASE featureapp;Exit;`
 10. Start python in the terminal:`python3`
 11. Import models in the models.py:`from featurequest import db, User, Feature, Client` then create tables:`db.create_all()` commit the tables and the onfigurations:`db.session.commit()` then exit python:`exit()`
-12. Start the application: `flask run -p 5000`
+12. Start the application: `flask run -p 5000` or using gunicorn `gunicorn --bind 0.0.0.0:8000 wsgi:app`
 
-13. Open your web browser and navigate to theaddress:(http://127.0.0.1:5000)
-
+13. Open your web browser and navigate to theaddress:(http://127.0.0.1:5000) or this with gunicorn: (http://0.0.0.0:8000)
 
 ### WITH DOCKER
 1. Install docker in your machine:
