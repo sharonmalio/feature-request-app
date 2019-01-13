@@ -31,3 +31,5 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     TESTING = True
 
+if __name__ == "__main__":
+    app.run()
