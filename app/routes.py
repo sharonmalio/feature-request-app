@@ -10,7 +10,6 @@ from .database import db_session
 
 
 @app.route('/', methods=['GET', 'POST'])
-@app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
@@ -20,7 +19,7 @@ def index():
     return render_template('index.html', title='Home', form=search)
 
 
-@app.route('/results')
+@app.route('/results', methods=['GET', 'POST')
 @login_required
 def search_results(*args):
     search = FeatureSearchForm(request.form)
@@ -77,7 +76,7 @@ def login():
     return render_template('login.html', title='Sign In', form=form)
 
 
-@app.route('/logout')
+@app.route('/logout', methods=['GET', 'POST'])
 def logout():
     logout_user()
     return redirect(url_for('index'))
