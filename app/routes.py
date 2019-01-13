@@ -165,8 +165,17 @@ def save_changes(feature, form, new=False):
         client_list.append(obj)
     sort(client_list)
 
-    print(client_list)
+  
+    try:
+        db.session.query(Feature).delete()
+        db.session.commit()
+    except:
+        db.session.rollback()
 
+    for record in client_list:
+        single_feature = Feature(**record)
+        db.session.add(single_feature)
+        db.session.commit()
         
 
 
