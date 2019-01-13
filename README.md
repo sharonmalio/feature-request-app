@@ -69,19 +69,19 @@ A "feature request" is a request for a new feature that will be added onto an ex
 
 ### Register
 
-![Alt text](screenshots/Register.jpg?raw=true "Optional Title")
+![Alt text](/Register.jpg?raw=true "Optional Title")
 
 ### Login
 
-![Alt text](screenshots/login.jpg?raw=true "Optional Title")
+![Alt text](/login.jpg?raw=true "Optional Title")
 
 ### Add New Feature
 
-![Alt text](screenshots/add_feature.jpg?raw=true "Optional Title")
+![Alt text](/add_feature.jpg?raw=true "Optional Title")
 
 ### View all Features
 
-![Alt text](screenshots/view_features.jpg?raw=true "Optional Title")
+![Alt text](/view_features.jpg?raw=true "Optional Title")
 
 
 
