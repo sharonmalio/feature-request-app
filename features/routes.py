@@ -1,11 +1,11 @@
 from flask import render_template, flash, redirect, session, url_for, request, jsonify
-from app import app, db
+from features import app, db
 from flask_login import login_user, logout_user, current_user, login_required
 from .forms import LoginForm, ClientForm, FeatureForm, FeatureSearchForm
 from .models import User, Feature, Client
 from .tables import Results
 from werkzeug.urls import url_parse
-from app.forms import RegistrationForm
+from .forms import RegistrationForm
 from .database import db_session
 
 

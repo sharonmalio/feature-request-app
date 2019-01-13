@@ -1,5 +1,5 @@
-from app import app, db
-from app.models import User, Feature,Client
+from features import app, db
+from features.models import User, Feature,Client
 
 @app.shell_context_processor
 def make_shell_context():
