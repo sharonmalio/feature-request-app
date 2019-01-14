@@ -1,2 +1,2 @@
-web: gunicorn featurequest.wsgi --preload
+web: gunicorn featurequest:app --preload
 

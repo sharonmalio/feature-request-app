@@ -1,4 +1,5 @@
 alembic==1.0.5
+app==0.0.1
 asn1crypto==0.24.0
 autopep8==1.4.3
 Babel==2.6.0
