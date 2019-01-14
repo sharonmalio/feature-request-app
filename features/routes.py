@@ -6,6 +6,8 @@ from .models import User, Feature, Client
 from .tables import Results
 from werkzeug.urls import url_parse
 from .database import db_session
+from sqlalchemy.sql import exists    
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -131,20 +133,16 @@ def save_changes(feature, form, new=False):
     Save the changes to the database
     """
     # Get data from form and assign it to the correct attributes
-    client = form.client.data
-    print(client)
-
+  
+   
     feature.title = form.title.data
     feature.description = form.description.data
     feature.client = form.client.data
     feature.client_priority = form.client_priority.data
     feature.target_date = form.target_date.data
     feature.product_area = form.product_area.data
-
-    if new:
-        # Add the new feature to the database
-        db_session.add(feature)
-
+      # Add the new feature to the database
+    db_session.add(feature)
     # commit the data to the database
     db_session.commit()
     client_list = []
@@ -160,24 +158,31 @@ def save_changes(feature, form, new=False):
             'product_area': c.product_area, 
             'date_created': c.date_created
         }
-        client_list.append(obj)
-    sort(client_list)
+    client_list.append(obj)
+    if db.session.query(exists().where(feature.client_priority == c.client_priority)).scalar():
+        print("we are tired")
+        sort(client_list)
+        for index in range(len(client_list)):
+            for key in client_list[index]:
+                if key == 'id':
+                    feat = Feature.query.filter_by(id=client_list[index][key]).first()
+                    d = {k: v for k, v in client_list[index].items() }
+                    print("shocking news:", d)
+                    print("feat", feat)
+                
+                    feat.title = d['title']
+                    feat.description = d['description']
+                    feat.client = d['client']
+                    feat.client_priority = d['client_priority']
+                    feat.target_date = d['target_date']
+                    feat.product_area = d['product_area']
+                    # then save
+                    # db.session.query(Feature).filter(Feature.id == feature.id).update(feature.client_priority)
+                    db.session.commit()
+    else:
+         return redirect(url_for('feature'))
 
+                    
   
-    try:
-        db.session.query(Feature).delete()
-        db.session.commit()
-    except:
-        db.session.rollback()
-
-    for record in client_list:
-        single_feature = Feature(**record)
-        db.session.add(single_feature)
-        db.session.commit()
-        
-
-
-
-
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
