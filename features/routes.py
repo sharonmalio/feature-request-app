@@ -80,7 +80,6 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -171,5 +170,4 @@ def save_changes(feature, form, new=False):
    
 
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+

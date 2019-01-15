@@ -66,6 +66,3 @@ class Feature(db.Model):
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'))
-    
-if __name__ == "__main__":
-    app.run()

@@ -55,7 +55,6 @@ psycopg2-binary==2.7.6.1
 pycparser==2.19
 pycrypto==2.6.1
 Pygments==2.2.0
-pylint==1.9.4
 pyOpenSSL==17.5.0
 pyparsing==2.2.0
 pyproj==1.9.5.1
