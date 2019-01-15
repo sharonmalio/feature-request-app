@@ -147,7 +147,7 @@ def save_changes(feature, form, new=False):
     sort(client_list)
     print("sharon", client_list)
     for c in client_list:
-        feature.client_priority =+ 1
+        feature.client_priority += 1
         db.session.add(feature)
         db.session.commit()
 

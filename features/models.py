@@ -3,6 +3,7 @@ from datetime import datetime
 from datetime import date
 from features import db, login
 from flask_login import UserMixin
+from sqlalchemy.dialects.postgresql import JSON
 
 
 class User(UserMixin, db.Model):

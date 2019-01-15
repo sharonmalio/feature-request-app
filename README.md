@@ -18,30 +18,29 @@ A "feature request" is a request for a new feature that will be added onto an ex
 
 ## PRERIQUISITES
 1. **PYTHON**: Install python. To check whether you have python installed, run the command: `python3`
-2. **MySQL SERVER**:Install MySQL:`sudo apt-get install mysql-server mysql-client -y`configure security configurations for our MySQL server:`sudo mysql_secure_installation`
+2. **PostgreSQL**:Install PostgreSQL :(https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)
 3. **PIP:** Install pip: `sudo apt install python3-pip` Verify the installation:`pip3 --version`
 
 ## RUNNING THE APPLICATION
 
 ### WITHOUT DOCKER 
-#####  WITHOUT GUNICORN
+
 1. Git clone: `git clone https://github.com/sharonmalio/feature-request-app.git` and change in to the project directory
 2. Install python VENV from the terminal
 `sudo apt-get install python3-venv`
 3. Delete the virtual env in the project folder. (look for a folder called featurequestenv within the root directory of the project): `sudo rm -R featurequestenv`
 4. Create another venv called featurequestenv or a name of your choice.
 `python3 -m venv featurequestenv`
-5. Cd into the virtual environment: `cd featurequestenv`
+5. cd into the virtual environment: `cd featurequestenv`
 6. Activate the virtual environment:`source featurequestenv/bin/activate `
 7. Install dependencies (contained in a file called requirements.txt in the root directory of the project):
 `pip install -r requirements.txt`
-8. log in to mysql:`mysql -u root -p`;
+8. Login into PostgreSQL in the terminal.
 9. Create a database called featureapp: `CREATE DATABASE featureapp;Exit;`
-10. Start python in the terminal:`python3`
-11. Import models in the models.py:`from featurequest import db, User, Feature, Client` then create tables:`db.create_all()` commit the tables and the onfigurations:`db.session.commit()` then exit python:`exit()`
-12. Start the application: `flask run -p 5000` or using gunicorn `gunicorn --bind 0.0.0.0:8000 wsgi:app`
+10. Initialize the db `python manage.py db init` migrate the db: `python manage.py db migrate`and then run: `python manage.py db upgrade` to apply the upgrades
+10. Start the application: `flask run -p 5000` or using gunicorn `gunicorn --bind 0.0.0.0:8000 wsgi:app`
 
-13. Open your web browser and navigate to theaddress:(http://127.0.0.1:5000) or this with gunicorn: (http://0.0.0.0:8000)
+11. Open your web browser and navigate to the address:(http://127.0.0.1:5000) or gunicorn: (http://0.0.0.0:8000)
 
 ### WITH DOCKER
 1. Install docker in your machine:

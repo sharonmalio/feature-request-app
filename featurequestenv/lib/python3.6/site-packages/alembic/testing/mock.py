@@ -7,11 +7,14 @@
 
 """Import stub for mock library.
 
-    NOTE:  copied/adapted from SQLAlchemy master for backwards compatibility;
-   this should be removable when Alembic targets SQLAlchemy 1.0.0
+    .. note::
+
+        copied/adapted from SQLAlchemy master for backwards compatibility;
+        this should be removable when Alembic targets SQLAlchemy 1.0.0
 
 """
 from __future__ import absolute_import
+
 from ..util.compat import py3k
 
 if py3k:
@@ -22,4 +25,5 @@ else:
     except ImportError:
         raise ImportError(
             "SQLAlchemy's test suite requires the "
-            "'mock' library as of 0.8.2.")
+            "'mock' library as of 0.8.2."
+        )

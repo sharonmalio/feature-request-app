@@ -1,18 +1,23 @@
 from __future__ import absolute_import
 
-
-import re
-from .. import util
-from sqlalchemy.engine import default
-from ..util.compat import text_type, py3k
 import contextlib
-from sqlalchemy.util import decorator
-from sqlalchemy import exc as sa_exc
+import re
 import warnings
+
+from sqlalchemy import exc as sa_exc
+from sqlalchemy.engine import default
+from sqlalchemy.util import decorator
+
+from . import config
 from . import mock
+from .exclusions import db_spec
+from .. import util
+from ..util.compat import py3k
+from ..util.compat import text_type
 
 
 if not util.sqla_094:
+
     def eq_(a, b, msg=None):
         """Assert a == b, with repr messaging on failure."""
         assert a == b, msg or "%r != %r" % (a, b)
@@ -44,27 +49,34 @@ if not util.sqla_094:
             callable_(*args, **kwargs)
             assert False, "Callable did not raise an exception"
         except except_cls as e:
-            assert re.search(
-                msg, text_type(e), re.UNICODE), "%r !~ %s" % (msg, e)
-            print(text_type(e).encode('utf-8'))
+            assert re.search(msg, text_type(e), re.UNICODE), "%r !~ %s" % (
+                msg,
+                e,
+            )
+            print(text_type(e).encode("utf-8"))
+
 
 else:
-    from sqlalchemy.testing.assertions import eq_, ne_, is_, is_not_, \
-        assert_raises_message, assert_raises
+    from sqlalchemy.testing.assertions import assert_raises  # noqa
+    from sqlalchemy.testing.assertions import assert_raises_message  # noqa
+    from sqlalchemy.testing.assertions import eq_  # noqa
+    from sqlalchemy.testing.assertions import is_  # noqa
+    from sqlalchemy.testing.assertions import is_not_  # noqa
+    from sqlalchemy.testing.assertions import ne_  # noqa
 
 
 def eq_ignore_whitespace(a, b, msg=None):
-    a = re.sub(r'^\s+?|\n', "", a)
-    a = re.sub(r' {2,}', " ", a)
-    b = re.sub(r'^\s+?|\n', "", b)
-    b = re.sub(r' {2,}', " ", b)
+    a = re.sub(r"^\s+?|\n", "", a)
+    a = re.sub(r" {2,}", " ", a)
+    b = re.sub(r"^\s+?|\n", "", b)
+    b = re.sub(r" {2,}", " ", b)
 
     # convert for unicode string rendering,
     # using special escape character "!U"
     if py3k:
-        b = re.sub(r'!U', '', b)
+        b = re.sub(r"!U", "", b)
     else:
-        b = re.sub(r'!U', 'u', b)
+        b = re.sub(r"!U", "u", b)
 
     assert a == b, msg or "%r != %r" % (a, b)
 
@@ -72,9 +84,10 @@ def eq_ignore_whitespace(a, b, msg=None):
 def assert_compiled(element, assert_string, dialect=None):
     dialect = _get_dialect(dialect)
     eq_(
-        text_type(element.compile(dialect=dialect)).
-        replace("\n", "").replace("\t", ""),
-        assert_string.replace("\n", "").replace("\t", "")
+        text_type(element.compile(dialect=dialect))
+        .replace("\n", "")
+        .replace("\t", ""),
+        assert_string.replace("\n", "").replace("\t", ""),
     )
 
 
@@ -82,19 +95,20 @@ _dialect_mods = {}
 
 
 def _get_dialect(name):
-    if name is None or name == 'default':
+    if name is None or name == "default":
         return default.DefaultDialect()
     else:
         try:
             dialect_mod = _dialect_mods[name]
         except KeyError:
             dialect_mod = getattr(
-                __import__('sqlalchemy.dialects.%s' % name).dialects, name)
+                __import__("sqlalchemy.dialects.%s" % name).dialects, name
+            )
             _dialect_mods[name] = dialect_mod
         d = dialect_mod.dialect()
-        if name == 'postgresql':
+        if name == "postgresql":
             d.implicit_returning = True
-        elif name == 'mssql':
+        elif name == "mssql":
             d.legacy_schema_aliasing = False
         return d
 
@@ -126,8 +140,6 @@ def expect_warnings_on(db, *messages, **kw):
     spec = db_spec(db)
 
     if isinstance(db, util.string_types) and not spec(config._current):
-        yield
-    elif not _is_excluded(*db):
         yield
     else:
         with expect_warnings(*messages, **kw):
@@ -161,6 +173,7 @@ def emits_warning_on(db, *messages):
     were in fact seen.
 
     """
+
     @decorator
     def decorate(fn, *args, **kw):
         with expect_warnings_on(db, *messages):
@@ -189,8 +202,9 @@ def _expect_warnings(exc_cls, messages, regex=True, assert_=True):
             return
 
         for filter_ in filters:
-            if (regex and filter_.match(msg)) or \
-                    (not regex and filter_ == msg):
+            if (regex and filter_.match(msg)) or (
+                not regex and filter_ == msg
+            ):
                 seen.discard(filter_)
                 break
         else:
@@ -203,6 +217,6 @@ def _expect_warnings(exc_cls, messages, regex=True, assert_=True):
         yield
 
     if assert_:
-        assert not seen, "Warnings were not seen: %s" % \
-            ", ".join("%r" % (s.pattern if regex else s) for s in seen)
-
+        assert not seen, "Warnings were not seen: %s" % ", ".join(
+            "%r" % (s.pattern if regex else s) for s in seen
+        )

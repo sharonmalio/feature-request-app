@@ -9,15 +9,17 @@
 """
 
 
-import operator
-from .plugin.plugin_base import SkipTest
-from sqlalchemy.util import decorator
-from . import config
-from sqlalchemy import util
-from ..util import compat
-import inspect
 import contextlib
-from .compat import get_url_driver_name, get_url_backend_name
+import operator
+
+from sqlalchemy import util
+from sqlalchemy.util import decorator
+
+from . import config
+from .compat import get_url_backend_name
+from .compat import get_url_driver_name
+from .plugin.plugin_base import SkipTest
+from ..util import compat
 
 
 def skip_if(predicate, reason=None):
@@ -74,15 +76,15 @@ class compound(object):
 
     def matching_config_reasons(self, config):
         return [
-            predicate._as_string(config) for predicate
-            in self.skips.union(self.fails)
+            predicate._as_string(config)
+            for predicate in self.skips.union(self.fails)
             if predicate(config)
         ]
 
     def include_test(self, include_tags, exclude_tags):
         return bool(
-            not self.tags.intersection(exclude_tags) and
-            (not include_tags or self.tags.intersection(include_tags))
+            not self.tags.intersection(exclude_tags)
+            and (not include_tags or self.tags.intersection(include_tags))
         )
 
     def _extend(self, other):
@@ -91,13 +93,14 @@ class compound(object):
         self.tags.update(other.tags)
 
     def __call__(self, fn):
-        if hasattr(fn, '_sa_exclusion_extend'):
+        if hasattr(fn, "_sa_exclusion_extend"):
             fn._sa_exclusion_extend._extend(self)
             return fn
 
         @decorator
         def decorate(fn, *args, **kw):
             return self._do(config._current, fn, *args, **kw)
+
         decorated = decorate(fn)
         decorated._sa_exclusion_extend = self
         return decorated
@@ -117,10 +120,7 @@ class compound(object):
     def _do(self, config, fn, *args, **kw):
         for skip in self.skips:
             if skip(config):
-                msg = "'%s' : %s" % (
-                    fn.__name__,
-                    skip._as_string(config)
-                )
+                msg = "'%s' : %s" % (fn.__name__, skip._as_string(config))
                 raise SkipTest(msg)
 
         try:
@@ -131,16 +131,20 @@ class compound(object):
             self._expect_success(config, name=fn.__name__)
             return return_value
 
-    def _expect_failure(self, config, ex, name='block'):
+    def _expect_failure(self, config, ex, name="block"):
         for fail in self.fails:
             if fail(config):
-                print(("%s failed as expected (%s): %s " % (
-                    name, fail._as_string(config), str(ex))))
+                print(
+                    (
+                        "%s failed as expected (%s): %s "
+                        % (name, fail._as_string(config), str(ex))
+                    )
+                )
                 break
         else:
             compat.raise_from_cause(ex)
 
-    def _expect_success(self, config, name='block'):
+    def _expect_success(self, config, name="block"):
         if not self.fails:
             return
         for fail in self.fails:
@@ -148,13 +152,12 @@ class compound(object):
                 break
         else:
             raise AssertionError(
-                "Unexpected success for '%s' (%s)" %
-                (
+                "Unexpected success for '%s' (%s)"
+                % (
                     name,
                     " and ".join(
-                        fail._as_string(config)
-                        for fail in self.fails
-                    )
+                        fail._as_string(config) for fail in self.fails
+                    ),
                 )
             )
 
@@ -191,8 +194,8 @@ class Predicate(object):
             return predicate
         elif isinstance(predicate, (list, set)):
             return OrPredicate(
-                [cls.as_predicate(pred) for pred in predicate],
-                description)
+                [cls.as_predicate(pred) for pred in predicate], description
+            )
         elif isinstance(predicate, tuple):
             return SpecPredicate(*predicate)
         elif isinstance(predicate, compat.string_types):
@@ -217,7 +220,7 @@ class Predicate(object):
             "driver": get_url_driver_name(config.db.url),
             "database": get_url_backend_name(config.db.url),
             "doesnt_support": "doesn't support" if bool_ else "does support",
-            "does_support": "does support" if bool_ else "doesn't support"
+            "does_support": "does support" if bool_ else "doesn't support",
         }
 
     def _as_string(self, config=None, negate=False):
@@ -244,21 +247,21 @@ class SpecPredicate(Predicate):
         self.description = description
 
     _ops = {
-        '<': operator.lt,
-        '>': operator.gt,
-        '==': operator.eq,
-        '!=': operator.ne,
-        '<=': operator.le,
-        '>=': operator.ge,
-        'in': operator.contains,
-        'between': lambda val, pair: val >= pair[0] and val <= pair[1],
+        "<": operator.lt,
+        ">": operator.gt,
+        "==": operator.eq,
+        "!=": operator.ne,
+        "<=": operator.le,
+        ">=": operator.ge,
+        "in": operator.contains,
+        "between": lambda val, pair: val >= pair[0] and val <= pair[1],
     }
 
     def __call__(self, config):
         engine = config.db
 
         if "+" in self.db:
-            dialect, driver = self.db.split('+')
+            dialect, driver = self.db.split("+")
         else:
             dialect, driver = self.db, None
 
@@ -271,8 +274,9 @@ class SpecPredicate(Predicate):
             assert driver is None, "DBAPI version specs not supported yet"
 
             version = _server_version(engine)
-            oper = hasattr(self.op, '__call__') and self.op \
-                or self._ops[self.op]
+            oper = (
+                hasattr(self.op, "__call__") and self.op or self._ops[self.op]
+            )
             return oper(version, self.spec)
         else:
             return True
@@ -287,17 +291,9 @@ class SpecPredicate(Predicate):
                 return "%s" % self.db
         else:
             if negate:
-                return "not %s %s %s" % (
-                    self.db,
-                    self.op,
-                    self.spec
-                )
+                return "not %s %s %s" % (self.db, self.op, self.spec)
             else:
-                return "%s %s %s" % (
-                    self.db,
-                    self.op,
-                    self.spec
-                )
+                return "%s %s %s" % (self.db, self.op, self.spec)
 
 
 class LambdaPredicate(Predicate):
@@ -354,8 +350,9 @@ class OrPredicate(Predicate):
             conjunction = " and "
         else:
             conjunction = " or "
-        return conjunction.join(p._as_string(config, negate=negate)
-                                for p in self.predicates)
+        return conjunction.join(
+            p._as_string(config, negate=negate) for p in self.predicates
+        )
 
     def _negation_str(self, config):
         if self.description is not None:
@@ -385,18 +382,16 @@ def _server_version(engine):
 
     # force metadata to be retrieved
     conn = engine.connect()
-    version = getattr(engine.dialect, 'server_version_info', ())
+    version = getattr(engine.dialect, "server_version_info", ())
     conn.close()
     return version
 
 
 def db_spec(*dbs):
-    return OrPredicate(
-        [Predicate.as_predicate(db) for db in dbs]
-    )
+    return OrPredicate([Predicate.as_predicate(db) for db in dbs])
 
 
-def open():
+def open():  # noqa
     return skip_if(BooleanPredicate(False, "mark as execute"))
 
 
@@ -418,11 +413,7 @@ def fails_on(db, reason=None):
 
 
 def fails_on_everything_except(*dbs):
-    return succeeds_if(
-        OrPredicate([
-            Predicate.as_predicate(db) for db in dbs
-        ])
-    )
+    return succeeds_if(OrPredicate([Predicate.as_predicate(db) for db in dbs]))
 
 
 def skip(db, reason=None):
@@ -441,7 +432,6 @@ def exclude(db, op, spec, reason=None):
 
 def against(config, *queries):
     assert queries, "no queries sent!"
-    return OrPredicate([
-        Predicate.as_predicate(query)
-        for query in queries
-    ])(config)
+    return OrPredicate([Predicate.as_predicate(query) for query in queries])(
+        config
+    )
