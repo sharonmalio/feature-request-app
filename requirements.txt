@@ -1,4 +1,5 @@
 alembic==1.0.6
+app==0.0.1
 asn1crypto==0.24.0
 astroid==1.6.5
 autoenv==1.0.0
