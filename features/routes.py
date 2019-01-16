@@ -1,11 +1,11 @@
 from flask import render_template, flash, redirect, session, url_for, request, jsonify
 from features import app, db
 from flask_login import login_user, logout_user, current_user, login_required
-from .forms import LoginForm, ClientForm, FeatureForm, FeatureSearchForm, RegistrationForm
-from .models import User, Feature, Client
-from .tables import Results
+from features.forms import LoginForm, ClientForm, FeatureForm, FeatureSearchForm, RegistrationForm
+from features.models import User, Feature, Client
+from features.tables import Results
 from werkzeug.urls import url_parse
-from .database import db_session
+from features.database import db_session
 
 
 @app.route('/', methods=['GET', 'POST'])
