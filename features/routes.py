@@ -5,7 +5,7 @@ from features.forms import LoginForm, ClientForm, FeatureForm, FeatureSearchForm
 from features.models import User, Feature, Client
 from features.tables import Results
 from werkzeug.urls import url_parse
-from features.database import db_session
+from .database import db_session
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -27,7 +27,8 @@ def search_results(*args):
 
     if search.data['search'] == '':
         qry = db_session.query(Feature)
-        results = Feature.query.order_by(Feature.client).all()
+        
+        results = Feature.query.order_by(Feature.client_priority).all()
 
     if not results:
         flash('No results found!')
@@ -94,7 +95,6 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-
 @app.route('/feature', methods=['GET', 'POST'])
 @login_required
 def feature():
@@ -102,53 +102,66 @@ def feature():
     if request.method == 'POST' and form.validate():
         # save the New Feature
         feature = Feature()
+        feature.title = form.title.data
+        feature.description = form.description.data
+        feature.client = form.client.data
+        feature.client_priority = form.client_priority.data
+        feature.target_date = form.target_date.data
+        feature.product_area = form.product_area.data
+
         priority=form.client_priority.data
         #right here I call the save_duplicates function
-        save_duplicates(feature, form, priority)
+        save_duplicates(feature, form, priority, True)
         flash('Feature Request Submitted successfully!')
         return redirect(url_for('feature'))
     return render_template('feature.html', title='Feature Request', form=form)
 
-def save_duplicates(feature,form, priority):
-    client_list=[]
+def save_duplicates(feature,form, priority, first=False):
     print("we are coding", priority)
-    feature_detail=Feature.query.filter_by(client=form.client.data).filter(feature.client_priority=priority).first()
-   #ORM requires me to jsonify data.
-    print("=========",feature_detail[0])
-    for f in feature_detail:
-        print("sharon", f)
-        obj = {
-            'id': f.id,
-            'title': f.title,
-            'description': f.description,
-            'client': f.client,
-            'client_priority': f.client_priority,
-            'target_date': f.target_date,
-            'product_area': f.product_area, 
-            'date_created': f.date_created
-        }
-        client_list.append(obj)
-        #I check if the client_list is not empty: which means there is a duplicate
-        if client_list is not None:
-            # call save_duplicate again
-            save_duplicates(feature_detail, form, feature.client_priority+1)
-        #then if client_list is empty, I just save by calling the save_changes function
-        save_changes(feature_detail, form)
+    feature_detail=Feature.query.filter(Feature.client==feature.client).filter(Feature.client_priority==priority).first()
+    # feature_detail.compile().params
+    print("=========",feature_detail)
+    if feature_detail:
+        save_duplicates(feature_detail, None, priority+1)
+        # feature = feature_detail
+        priority = None
+        save_changes(feature, form, priority)
+    else:
+        if first:
+            save_changes(feature, form, None)
+        else:
+            save_changes(feature, form, priority)
 
-def save_changes(feature_detail, form):
-    #saving the data into the database
-    feature_detail.title = form.title.data
-    feature_detail.description = form.description.data
-    feature_detail.client = form.client.data
-    feature_detail.client_priority = form.client_priority.data
-    feature_detail.target_date = form.target_date.data
-    feature_detail.product_area = form.product_area.data
-        # Add the new feature to the database
-    db_session.add(feature_detail)
-
-    # commit the data to the database
-    db_session.commit()
-   
+def save_changes(feature_detail, form, priority=None):
+    if form:
+        #saving the data into the database
+        feature_detail.title = form.title.data
+        feature_detail.description = form.description.data
+        feature_detail.client = form.client.data
+        feature_detail.client_priority = form.client_priority.data
+        feature_detail.target_date = form.target_date.data
+        feature_detail.product_area = form.product_area.data
+    if priority:
+        new_feature = Feature.query.filter(Feature.client==feature_detail.client).first()
+        feature_2 = Feature()
+        feature_2.title = new_feature.title
+        feature_2.description = new_feature.description
+        feature_2.client = new_feature.client
+        feature_2.client_priority = priority
+        feature_2.target_date = new_feature.target_date
+        feature_2.product_area = new_feature.product_area
+        db.session.remove()
+        db_session.delete(new_feature)
+    
+        db_session.add(feature_2)
+        db_session.commit()
+        db.session.remove()
+        
+    else:
+        db_session.add(feature_detail)
+        db_session.commit()
+        db.session.remove()
+     
 
 
 
