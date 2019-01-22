@@ -67,24 +67,29 @@ A "feature request" is a request for a new feature that will be added onto an ex
 ## SCREENSHOTS
 
 ### Register
+
 I added register to ease the site interractio. Otherwise the IWS admin should be the one adding her employees to the system
 1. In the navigation bar click on login
 2. Below the login page there is a link that says "Click to Register"
 3. Follow the link and fill the information as required. 
 4. click on the register button when done. 
-########### below is a an image that shows the view of the register page.
+Below is a an image that shows the view of the register page.
 
 ![registration](https://user-images.githubusercontent.com/11241491/51083208-24cba500-1727-11e9-8139-0c772beda642.png)
 
 ### Login
+
 This assumes that you already exist in the application and you got the login credentials.
 1. In the navigation bar click on login.
 2. Fill in the information as required. 
 3. Click on the sign in button once done.
-########### below is a screenshot of the login view
+
+Below is a screenshot of the login view
+
 ![login](https://user-images.githubusercontent.com/11241491/51083206-1f6e5a80-1727-11e9-9b8a-545e5a6e55ea.png)
 
 ### Add New Feature
+
 This step requires that you are logged in user. 
 1. In the navigation bar click on New Feature. 
 2. in the form presented fill in the details as required. 
@@ -95,10 +100,13 @@ Below is a screenshot of the add new feature view
 
 ![add_feature](https://user-images.githubusercontent.com/11241491/51083204-1087a800-1727-11e9-81ff-fc898948c5dd.png)
 
-### View all Features
+### View all 
+
 1. Click on the All Features in the navigation bar.
-2. The features available in the database will show here. 
+2. The features available in the database will show here.
+ 
 Below is a screenshot of the view.
+
 ![view_features](https://user-images.githubusercontent.com/11241491/51083211-25fcd200-1727-11e9-8a61-3615fe0610ed.png)
 
 
