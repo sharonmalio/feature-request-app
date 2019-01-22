@@ -17,6 +17,8 @@ A "feature request" is a request for a new feature that will be added onto an ex
 4. ORM: Sql-Alchemy
 5. JavaScript: JQuery
 
+##  APPLICATION DEVELOPMENT APPROACH
+
 ## PRERIQUISITES
 1. **PYTHON**: Install python. To check whether you have python installed, run the command: `python3`
 2. **PostgreSQL**:Install PostgreSQL :(https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)
@@ -97,7 +99,6 @@ This step requires that you are logged in user.
 3. Click on the submit button once done. 
 4. A successful message will show. 
 
-Below is a screenshot of the add new feature view
 
 ![add_feature](https://user-images.githubusercontent.com/11241491/51083204-1087a800-1727-11e9-81ff-fc898948c5dd.png)
 
@@ -110,9 +111,7 @@ Below is a screenshot of the view.
 
 ![view_features](https://user-images.githubusercontent.com/11241491/51083211-25fcd200-1727-11e9-8a61-3615fe0610ed.png)
 
-## DEPLOYMENT METHOD
 
-Public cloud specifically gcloud
 
 
 
