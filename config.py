@@ -7,7 +7,7 @@ class Config(object):
     CSRF_ENABLED = True
     SECRET_KEY = '@Rocky#123.!'
     SQLALCHEMY_ECHO = True
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    SQLALCHEMY_DATABASE_URI = "postgresql:///featureapp"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
   
 class ProductionConfig(Config):

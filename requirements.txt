@@ -47,6 +47,11 @@ MarkupSafe==1.0
 matplotlib==2.1.1
 mccabe==0.6.1
 mechanize==0.2.5
+<<<<<<< HEAD
+# mod-wsgi==4.6.5
+# mod-wsgi-httpd==2.4.35.1
+=======
+>>>>>>> d82843fe45483ae7d070c52751b6787c8fd2a52f
 msgpack==0.5.6
 netifaces==0.10.4
 numpy==1.13.3
