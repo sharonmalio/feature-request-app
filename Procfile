@@ -1,2 +1,2 @@
-web: gunicorn featurequest:app --preload
+web: gunicorn -b :8000 featurequest:app
 
