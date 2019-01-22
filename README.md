@@ -7,6 +7,7 @@ A "feature request" is a request for a new feature that will be added onto an ex
 2. Users can add new features from their clients.
 3. Users can view all the features available. 
 4. Features, of a particular client, are reasigned their priorities based on the priority of the newly added one.
+5. Users can edit the features that have already been added. 
 
 ## TECH STACK
 
@@ -104,10 +105,17 @@ Below is a screenshot of the add new feature view
 
 1. Click on the All Features in the navigation bar.
 2. The features available in the database will show here.
- 
+
 Below is a screenshot of the view.
 
 ![view_features](https://user-images.githubusercontent.com/11241491/51083211-25fcd200-1727-11e9-8a61-3615fe0610ed.png)
+
+## DEPLOYMENT METHOD
+
+Public cloud specifically gcloud
+
+
+
 
 
 
