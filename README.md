@@ -25,7 +25,9 @@ I used the MVC pattern of programming whose flow is outlined below.
 3. The controller then passes this data to the view to update the user interface.
 
 ## DEPLOYMENT STEPS
- 
+Used gcloud to deploy the project. Below are the steps taken. 
+1. 
+
 ## PRERIQUISITES
 1. **PYTHON**: Install python. To check whether you have python installed, run the command: `python3`
 2. **PostgreSQL**:Install PostgreSQL :(https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)
