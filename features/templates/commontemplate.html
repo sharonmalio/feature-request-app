@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <meta charset="utf-8">
     {% if title %}
     <title>{{ title }} - FeatureApp</title>
     {% else %}
@@ -14,8 +15,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <!-- scripts -->
-  
-    <link href="../static/css/commontemplate.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/commontemplate.css') }}">
 </head>
 
 <body>

@@ -17,8 +17,15 @@ A "feature request" is a request for a new feature that will be added onto an ex
 4. ORM: Sql-Alchemy
 5. JavaScript: JQuery
 
-##  APPLICATION DEVELOPMENT APPROACH
+## DEVELOPMENT APPROACH
+I used the MVC pattern of programming whose flow is outlined below. 
 
+1. The user makes a request along a route, let’s say /index.
+2. The controller receives this request and gives a specific set of orders that are related to that route. These instructions could either be for the view to update or serve a certain page, or for the model to perform specific logic. If this request has some logic associated with it, then the model carries out the logic, pulls from a database and sends back a consistent response based on the controller’s instructions. 
+3. The controller then passes this data to the view to update the user interface.
+
+## DEPLOYMENT STEPS
+ 
 ## PRERIQUISITES
 1. **PYTHON**: Install python. To check whether you have python installed, run the command: `python3`
 2. **PostgreSQL**:Install PostgreSQL :(https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)
@@ -26,7 +33,14 @@ A "feature request" is a request for a new feature that will be added onto an ex
 
 ## RUNNING THE APPLICATION
 
-### WITHOUT DOCKER 
+### DEPLOYED APPLICATION
+
+Gcloud public cloud deployment method used.
+Follow this url to access the application in your browser: (http://35.240.3.36) 
+
+### ON LOCAL ENVIRONMENT
+
+#### WITHOUT DOCKER 
 
 1. Git clone: `git clone https://github.com/sharonmalio/feature-request-app.git` and change in to the project directory
 2. Install python VENV from the terminal
@@ -45,7 +59,7 @@ A "feature request" is a request for a new feature that will be added onto an ex
 
 11. Open your web browser and navigate to the address:(http://127.0.0.1:5000) or gunicorn: (http://0.0.0.0:8000)
 
-### WITH DOCKER
+#### WITH DOCKER
 1. Install docker in your machine:
 (https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 

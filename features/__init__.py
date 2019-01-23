@@ -17,4 +17,6 @@ login.login_view = 'login'
 
 from features import routes, models, tables
 
+if __name__=='__main__':
+    app.run(debug=True)
 

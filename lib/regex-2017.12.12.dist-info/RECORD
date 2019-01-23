@@ -1,0 +1,12 @@
+__pycache__/_regex_core.cpython-36.pyc,,
+__pycache__/regex.cpython-36.pyc,,
+__pycache__/test_regex.cpython-36.pyc,,
+_regex.cpython-36m-x86_64-linux-gnu.so,sha256=SpEIW5cfBVST1k0YHu2GXGPQakKlu9bMmJYv1bFSY9M,1493800
+_regex_core.py,sha256=j44iKnjBXg3CYsHKwazHpvOXXtzSFFLb23itAU-QJYs,141790
+regex-2017.12.12.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+regex-2017.12.12.dist-info/METADATA,sha256=IC9nI60qcOVVbkITsLJJh7phhGqkbRstwWU8DP9-kNM,40999
+regex-2017.12.12.dist-info/RECORD,,
+regex-2017.12.12.dist-info/WHEEL,sha256=zfLI8UG8SYrkkKiIcNZV3RdKvj24wfV1YiJLFokwxiQ,104
+regex-2017.12.12.dist-info/top_level.txt,sha256=tw5-CKEX1sGxIMsvl7R_WzlX0H-avTd1QAeuFxI2VeQ,36
+regex.py,sha256=Qgwm1wGV72wn0g0n3CH4wgblrC_PNUYLf5A1f2X76K4,30610
+test_regex.py,sha256=jrAGgRApwXXY6RMJ6VO6pHBoylB9erTkuMpQiL4wy_E,195943
