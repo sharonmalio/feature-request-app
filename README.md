@@ -32,10 +32,7 @@ Used gcloud to deploy the project. Below are the steps taken.
 1. Create a google VM instance that runs Ubuntu 18.04 LTS
 2. Update the local apt package index: `sudo apt-get update`
 
-3. Install nginx, postgres, pip and additional libraries: 
-
-`sudo apt-get install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx`
-`sudo apt-get install build-essential libssl-dev libffi-dev python-dev`
+3. Install nginx, postgres, pip and additional libraries: `sudo apt-get install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx` and then run:`sudo apt-get install build-essential libssl-dev libffi-dev python-dev`
 
 4. Install apache: `sudo apt install apache2`
 
