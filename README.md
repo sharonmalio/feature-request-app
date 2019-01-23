@@ -122,7 +122,6 @@ server {
 
 ### DEPLOYED APPLICATION
 
-Gcloud public cloud deployment method used.
 Follow this url to access the application in your browser: (http://35.240.3.36) 
 
 ### ON LOCAL ENVIRONMENT
