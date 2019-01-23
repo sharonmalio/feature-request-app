@@ -25,8 +25,96 @@ I used the MVC pattern of programming whose flow is outlined below.
 3. The controller then passes this data to the view to update the user interface.
 
 ## DEPLOYMENT STEPS
+
 Used gcloud to deploy the project. Below are the steps taken. 
-1. 
+
+
+1. Create a google VM instance that runs Ubuntu 18.04 LTS
+2. Update the local apt package index: `sudo apt-get update`
+
+3. Install nginx, postgres, pip and additional libraries: 
+
+`sudo apt-get install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx`
+`sudo apt-get install build-essential libssl-dev libffi-dev python-dev`
+
+4. Install apache: `sudo apt install apache2`
+
+5. Install and configure git
+6. Generate ssh keys and add public key to github
+
+7. Login into Postgres: `sudo -u postgres psql`
+
+8. Create database called featureapp: `CREATE DATABASE featureapp;`
+
+9. Create user for the database:`CREATE USER yourusername WITH PASSWORD 'yourpassword';` and then: `GRANT ALL PRIVILEGES ON DATABASE featureapp TO yourusername;`
+
+10. Git clone: git clone https://github.com/sharonmalio/feature-request-app.git and change in to the project directory
+
+11. Install python VENV from the terminal sudo apt-get install python3-venv
+
+12. Delete the virtual env in the project folder. (look for a folder called featurequestenv within the root directory of the project): sudo rm -R featurequestenv
+
+13. Create another venv called featurequestenv or a name of your choice. python3 -m venv featurequestenv
+
+14. cd into the virtual environment: `cd featurequestenv`
+
+15. Activate the virtual environment:`source featurequestenv/bin/activate`
+
+16. Install dependencies (contained in a file called requirements.txt in the root directory of the project): `pip install -r requirements.txt`
+
+17. Initialize the db `python manage.py db init` migrate the db: `python manage.py db migrate` and then run: `python manage.py db upgrade` to apply the upgrades
+
+18. Create Gunicorn systemd service file: `sudo nano /etc/systemd/system/gunicorn.service`
+
+19. Add the following to the file
+
+```
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=replace-user-here
+Group=www-data
+WorkingDirectory=/home/replace-user-here/myproject
+ExecStart=/home/replace-user-here/your-project-name/your-env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/replace-user-here/your-project-name/your-project-name.sock wsgi:app
+
+[Install]
+WantedBy=multi-user.target
+
+```
+
+20. Start and enable Gunicorn: `sudo systemctl start gunicorn` and run: `sudo systemctl enable gunicorn`
+
+21. Configure Nginx: `sudo nano /etc/nginx/sites-available/project-name`
+
+22. Add to the file
+
+```
+server {
+    listen 80;
+    server_name server_domain_or_IP;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/replace-user-here/project-name;
+    }
+
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/replace-user-here/project-name/project-name.sock;
+    }
+}
+```
+
+23. Enable file: `sudo ln -s /etc/nginx/sites-available/project-name /etc/nginx/sites-enabled`
+
+24. Restart Nginx: `sudo systemctl restart nginx`
 
 ## PRERIQUISITES
 1. **PYTHON**: Install python. To check whether you have python installed, run the command: `python3`
