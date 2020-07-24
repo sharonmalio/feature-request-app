@@ -169,17 +169,17 @@ class FigureCanvasTkAgg(FigureCanvasAgg):
     """_keycode_lookup is used for badly mapped (i.e. no event.key_sym set)
        keys on apple keyboards."""
 
-    def __init__(self, figure, master=None, resize_callback=None):
+    def __init__(self, figure, main=None, resize_callback=None):
         FigureCanvasAgg.__init__(self, figure)
         self._idle = True
         self._idle_callback = None
         t1,t2,w,h = self.figure.bbox.bounds
         w, h = int(w), int(h)
         self._tkcanvas = Tk.Canvas(
-            master=master, width=w, height=h, borderwidth=0,
+            main=main, width=w, height=h, borderwidth=0,
             highlightthickness=0)
         self._tkphoto = Tk.PhotoImage(
-            master=self._tkcanvas, width=w, height=h)
+            main=self._tkcanvas, width=w, height=h)
         self._tkcanvas.create_image(w//2, h//2, image=self._tkphoto)
         self._resize_callback = resize_callback
         self._tkcanvas.bind("<Configure>", self.resize)
@@ -210,7 +210,7 @@ class FigureCanvasTkAgg(FigureCanvasAgg):
                 self.close_event()
         root.bind("<Destroy>", filter_destroy, "+")
 
-        self._master = master
+        self._main = main
         self._tkcanvas.focus_set()
 
     def resize(self, event):
@@ -227,7 +227,7 @@ class FigureCanvasTkAgg(FigureCanvasAgg):
 
         self._tkcanvas.delete(self._tkphoto)
         self._tkphoto = Tk.PhotoImage(
-            master=self._tkcanvas, width=int(width), height=int(height))
+            main=self._tkcanvas, width=int(width), height=int(height))
         self._tkcanvas.create_image(int(width/2),int(height/2),image=self._tkphoto)
         self.resize_event()
         self.show()
@@ -303,11 +303,11 @@ class FigureCanvasTkAgg(FigureCanvasAgg):
     def draw(self):
         FigureCanvasAgg.draw(self)
         tkagg.blit(self._tkphoto, self.renderer._renderer, colormode=2)
-        self._master.update_idletasks()
+        self._main.update_idletasks()
 
     def blit(self, bbox=None):
         tkagg.blit(self._tkphoto, self.renderer._renderer, bbox=bbox, colormode=2)
-        self._master.update_idletasks()
+        self._main.update_idletasks()
 
     show = draw
 
@@ -462,7 +462,7 @@ class FigureCanvasTkAgg(FigureCanvasAgg):
         return TimerTk(self._tkcanvas, *args, **kwargs)
 
     def flush_events(self):
-        self._master.update()
+        self._main.update()
 
 
 class FigureManagerTkAgg(FigureManagerBase):
@@ -537,7 +537,7 @@ class FigureManagerTkAgg(FigureManagerBase):
         if height is None:
             width = width.width
         else:
-            self.canvas._tkcanvas.master.geometry("%dx%d" % (width, height))
+            self.canvas._tkcanvas.main.geometry("%dx%d" % (width, height))
 
         if self.toolbar is not None:
             self.toolbar.configure(width=width)
@@ -586,13 +586,13 @@ class FigureManagerTkAgg(FigureManagerBase):
 
 
 class AxisMenu(object):
-    def __init__(self, master, naxes):
-        self._master = master
+    def __init__(self, main, naxes):
+        self._main = main
         self._naxes = naxes
-        self._mbar = Tk.Frame(master=master, relief=Tk.RAISED, borderwidth=2)
+        self._mbar = Tk.Frame(main=main, relief=Tk.RAISED, borderwidth=2)
         self._mbar.pack(side=Tk.LEFT)
         self._mbutton = Tk.Menubutton(
-            master=self._mbar, text="Axes", underline=0)
+            main=self._mbar, text="Axes", underline=0)
         self._mbutton.pack(side=Tk.LEFT, padx="2m")
         self._mbutton.menu = Tk.Menu(self._mbutton)
         self._mbutton.menu.add_command(
@@ -635,7 +635,7 @@ class AxisMenu(object):
         return a
 
     def set_active(self):
-        self._master.set_active(self.get_indices())
+        self._main.set_active(self.get_indices())
 
     def invert_all(self):
         for a in self._axis_var:
@@ -695,9 +695,9 @@ class NavigationToolbar2TkAgg(NavigationToolbar2, Tk.Frame):
     def _Button(self, text, file, command, extension='.gif'):
         img_file = os.path.join(
             rcParams['datapath'], 'images', file + extension)
-        im = Tk.PhotoImage(master=self, file=img_file)
+        im = Tk.PhotoImage(main=self, file=img_file)
         b = Tk.Button(
-            master=self, text=text, padx=2, pady=2, image=im, command=command)
+            main=self, text=text, padx=2, pady=2, image=im, command=command)
         b._ntimage = im
         b.pack(side=Tk.LEFT)
         return b
@@ -705,14 +705,14 @@ class NavigationToolbar2TkAgg(NavigationToolbar2, Tk.Frame):
     def _Spacer(self):
         # Buttons are 30px high, so make this 26px tall with padding to center it
         s = Tk.Frame(
-            master=self, height=26, relief=Tk.RIDGE, pady=2, bg="DarkGray")
+            main=self, height=26, relief=Tk.RIDGE, pady=2, bg="DarkGray")
         s.pack(side=Tk.LEFT, padx=5)
         return s
 
     def _init_toolbar(self):
         xmin, xmax = self.canvas.figure.bbox.intervalx
         height, width = 50, xmax-xmin
-        Tk.Frame.__init__(self, master=self.window,
+        Tk.Frame.__init__(self, main=self.window,
                           width=int(width), height=int(height),
                           borderwidth=2)
 
@@ -728,15 +728,15 @@ class NavigationToolbar2TkAgg(NavigationToolbar2, Tk.Frame):
                 if tooltip_text is not None:
                     ToolTip.createToolTip(button, tooltip_text)
 
-        self.message = Tk.StringVar(master=self)
-        self._message_label = Tk.Label(master=self, textvariable=self.message)
+        self.message = Tk.StringVar(main=self)
+        self._message_label = Tk.Label(main=self, textvariable=self.message)
         self._message_label.pack(side=Tk.RIGHT)
         self.pack(side=Tk.BOTTOM, fill=Tk.X)
 
     def configure_subplots(self):
         toolfig = Figure(figsize=(6,3))
         window = Tk.Tk()
-        canvas = FigureCanvasTkAgg(toolfig, master=window)
+        canvas = FigureCanvasTkAgg(toolfig, main=window)
         toolfig.subplots_adjust(top=0.9)
         tool =  SubplotTool(self.canvas.figure, toolfig)
         canvas.show()
@@ -763,7 +763,7 @@ class NavigationToolbar2TkAgg(NavigationToolbar2, Tk.Frame):
         initialdir = os.path.expanduser(rcParams['savefig.directory'])
         initialfile = self.canvas.get_default_filename()
         fname = tkinter_tkfiledialog.asksaveasfilename(
-            master=self.window,
+            main=self.window,
             title='Save the figure',
             filetypes=tk_filetypes,
             defaultextension=defaultextension,
@@ -872,7 +872,7 @@ class ToolbarTk(ToolContainerBase, Tk.Frame):
         ToolContainerBase.__init__(self, toolmanager)
         xmin, xmax = self.toolmanager.canvas.figure.bbox.intervalx
         height, width = 50, xmax - xmin
-        Tk.Frame.__init__(self, master=window,
+        Tk.Frame.__init__(self, main=window,
                           width=int(width), height=int(height),
                           borderwidth=2)
         self._toolitems = {}
@@ -892,26 +892,26 @@ class ToolbarTk(ToolContainerBase, Tk.Frame):
         if group not in self._groups:
             if self._groups:
                 self._add_separator()
-            frame = Tk.Frame(master=self, borderwidth=0)
+            frame = Tk.Frame(main=self, borderwidth=0)
             frame.pack(side=Tk.LEFT, fill=Tk.Y)
             self._groups[group] = frame
         return self._groups[group]
 
     def _add_separator(self):
-        separator = Tk.Frame(master=self, bd=5, width=1, bg='black')
+        separator = Tk.Frame(main=self, bd=5, width=1, bg='black')
         separator.pack(side=Tk.LEFT, fill=Tk.Y, padx=2)
 
     def _Button(self, text, image_file, toggle, frame):
         if image_file is not None:
-            im = Tk.PhotoImage(master=self, file=image_file)
+            im = Tk.PhotoImage(main=self, file=image_file)
         else:
             im = None
 
         if not toggle:
-            b = Tk.Button(master=frame, text=text, padx=2, pady=2, image=im,
+            b = Tk.Button(main=frame, text=text, padx=2, pady=2, image=im,
                           command=lambda: self._button_click(text))
         else:
-            b = Tk.Checkbutton(master=frame, text=text, padx=2, pady=2,
+            b = Tk.Checkbutton(main=frame, text=text, padx=2, pady=2,
                                image=im, indicatoron=False,
                                command=lambda: self._button_click(text))
         b._ntimage = im
@@ -941,11 +941,11 @@ class StatusbarTk(StatusbarBase, Tk.Frame):
         StatusbarBase.__init__(self, *args, **kwargs)
         xmin, xmax = self.toolmanager.canvas.figure.bbox.intervalx
         height, width = 50, xmax - xmin
-        Tk.Frame.__init__(self, master=window,
+        Tk.Frame.__init__(self, main=window,
                           width=int(width), height=int(height),
                           borderwidth=2)
-        self._message = Tk.StringVar(master=self)
-        self._message_label = Tk.Label(master=self, textvariable=self._message)
+        self._message = Tk.StringVar(main=self)
+        self._message_label = Tk.Label(main=self, textvariable=self._message)
         self._message_label.pack(side=Tk.RIGHT)
         self.pack(side=Tk.TOP, fill=Tk.X)
 
@@ -975,7 +975,7 @@ class SaveFigureTk(backend_tools.SaveFigureBase):
         initialdir = os.path.expanduser(rcParams['savefig.directory'])
         initialfile = self.figure.canvas.get_default_filename()
         fname = tkinter_tkfiledialog.asksaveasfilename(
-            master=self.figure.canvas.manager.window,
+            main=self.figure.canvas.manager.window,
             title='Save the figure',
             filetypes=tk_filetypes,
             defaultextension=defaultextension,
@@ -1016,7 +1016,7 @@ class ConfigureSubplotsTk(backend_tools.ConfigureSubplotsBase):
         toolfig = Figure(figsize=(6, 3))
         self.window = Tk.Tk()
 
-        canvas = FigureCanvasTkAgg(toolfig, master=self.window)
+        canvas = FigureCanvasTkAgg(toolfig, main=self.window)
         toolfig.subplots_adjust(top=0.9)
         _tool = SubplotTool(self.figure, toolfig)
         canvas.show()
@@ -1062,7 +1062,7 @@ class _BackendTkAgg(_Backend):
             # log the failure (due e.g. to Tk version), but carry on
             verbose.report('Could not load matplotlib icon: %s' % exc)
 
-        canvas = FigureCanvasTkAgg(figure, master=window)
+        canvas = FigureCanvasTkAgg(figure, main=window)
         manager = FigureManagerTkAgg(canvas, num, window)
         if matplotlib.is_interactive():
             manager.show()
