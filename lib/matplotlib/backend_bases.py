@@ -327,7 +327,7 @@ class RendererBase(object):
                                transforms.Affine2D().translate(x, y),
                                rgbFace)
 
-    def draw_path_collection(self, gc, master_transform, paths, all_transforms,
+    def draw_path_collection(self, gc, main_transform, paths, all_transforms,
                              offsets, offsetTrans, facecolors, edgecolors,
                              linewidths, linestyles, antialiaseds, urls,
                              offset_position):
@@ -354,11 +354,11 @@ class RendererBase(object):
         """
         path_ids = []
         for path, transform in self._iter_collection_raw_paths(
-                master_transform, paths, all_transforms):
+                main_transform, paths, all_transforms):
             path_ids.append((path, transforms.Affine2D(transform)))
 
         for xo, yo, path_id, gc0, rgbFace in self._iter_collection(
-                gc, master_transform, all_transforms, path_ids, offsets,
+                gc, main_transform, all_transforms, path_ids, offsets,
                 offsetTrans, facecolors, edgecolors, linewidths, linestyles,
                 antialiaseds, urls, offset_position):
             path, transform = path_id
@@ -366,7 +366,7 @@ class RendererBase(object):
                             transform.get_matrix()).translate(xo, yo)
             self.draw_path(gc0, path, transform, rgbFace)
 
-    def draw_quad_mesh(self, gc, master_transform, meshWidth, meshHeight,
+    def draw_quad_mesh(self, gc, main_transform, meshWidth, meshHeight,
                        coordinates, offsets, offsetTrans, facecolors,
                        antialiased, edgecolors):
         """
@@ -384,7 +384,7 @@ class RendererBase(object):
         linewidths = np.array([gc.get_linewidth()], float)
 
         return self.draw_path_collection(
-            gc, master_transform, paths, [], offsets, offsetTrans, facecolors,
+            gc, main_transform, paths, [], offsets, offsetTrans, facecolors,
             edgecolors, linewidths, [], [antialiased], [None], 'screen')
 
     def draw_gouraud_triangle(self, gc, points, colors, transform):
@@ -425,7 +425,7 @@ class RendererBase(object):
         for tri, col in zip(triangles_array, colors_array):
             self.draw_gouraud_triangle(gc, tri, col, transform)
 
-    def _iter_collection_raw_paths(self, master_transform, paths,
+    def _iter_collection_raw_paths(self, main_transform, paths,
                                    all_transforms):
         """
         This is a helper method (along with :meth:`_iter_collection`) to make
@@ -433,7 +433,7 @@ class RendererBase(object):
         implementation in a backend.
 
         This method yields all of the base path/transform
-        combinations, given a master transform, a list of paths and
+        combinations, given a main transform, a list of paths and
         list of transforms.
 
         The arguments should be exactly what is passed in to
@@ -454,7 +454,7 @@ class RendererBase(object):
             path = paths[i % Npaths]
             if Ntransforms:
                 transform = Affine2D(all_transforms[i % Ntransforms])
-            yield path, transform + master_transform
+            yield path, transform + main_transform
 
     def _iter_collection_uses_per_path(self, paths, all_transforms,
                                        offsets, facecolors, edgecolors):
@@ -473,7 +473,7 @@ class RendererBase(object):
         N = max(Npath_ids, len(offsets))
         return (N + Npath_ids - 1) // Npath_ids
 
-    def _iter_collection(self, gc, master_transform, all_transforms,
+    def _iter_collection(self, gc, main_transform, all_transforms,
                          path_ids, offsets, offsetTrans, facecolors,
                          edgecolors, linewidths, linestyles,
                          antialiaseds, urls, offset_position):
@@ -536,9 +536,9 @@ class RendererBase(object):
                     if Ntransforms:
                         transform = (
                             Affine2D(all_transforms[i % Ntransforms]) +
-                            master_transform)
+                            main_transform)
                     else:
-                        transform = master_transform
+                        transform = main_transform
                     xo, yo = transform.transform_point((xo, yo))
                     xp, yp = transform.transform_point((0, 0))
                     xo = -(xp - xo)
